@@ -18,8 +18,9 @@
 
 (defn get-handler []
   (-> #'app
-      (wrap-file "resources")
-      (wrap-file-info)))
+      ;(wrap-file "../resources")
+      ;(wrap-file-info)
+      ))
 
 (defn start-server
   "Function allows to start the server in development mode"
