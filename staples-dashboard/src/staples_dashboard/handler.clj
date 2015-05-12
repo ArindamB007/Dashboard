@@ -3,10 +3,10 @@
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             ;user file includes
-            [staples-dashboard.views.main-template :refer [create-html5-template create-test]]))
+            [staples-dashboard.views.main-template :refer [base-html5-template create-test]]))
 
 (defroutes app-routes
-  (GET "/" [] (create-html5-template))
+  (GET "/" [] (base-html5-template "Staples Dashboard"))
   (GET "/Test" [] (create-test))
   (route/not-found "Not Found"))
 

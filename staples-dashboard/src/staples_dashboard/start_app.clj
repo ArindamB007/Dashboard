@@ -18,8 +18,8 @@
 
 (defn get-handler []
   (-> #'app
-      ;(wrap-file "../resources")
-      ;(wrap-file-info)
+      (wrap-file "../resources")
+      (wrap-file-info)
       ))
 
 (defn start-server
@@ -33,8 +33,8 @@
                     :auto-reload? true
                     :auto-refresh? true
                     :destroy destroy
-                    :join true}))
-    (println (str "Staples Dashboard may be view at URL:: http://localhost"))))
+                    :join false}))
+    (println (str "Staples Dashboard may be view at URL:: http://localhost:8080"))))
 
 (defn stop-server []
   (.stop @server)
