@@ -7,7 +7,7 @@
 
 (defroutes app-routes
   (GET "/" [] (base-html5-template "Staples Dashboard"))
-  (GET "/Test" [] (create-test))
+  (GET "/Test" [] (create-test "Test Page"))
   (route/not-found "Not Found"))
 
 (def app
