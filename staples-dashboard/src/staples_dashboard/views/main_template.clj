@@ -1,6 +1,6 @@
 (ns staples-dashboard.views.main-template
   (:require [hiccup.page :refer [html5 include-css include-js ]]
-            [staples-dashboard.common.html-util :refer [create-faded-modal-alert]]))
+            [staples-dashboard.common.html-util :refer [create-faded-modal-alert create-progress-bar]]))
 
 (defn base-html5-template [title]
   (html5
@@ -16,25 +16,24 @@
      ;(include-js "/angular/angular.min.js")
      ]
     [:body
-     [:header
-      [:h1 "My Header Section"]]
-     [:nav "Navigation Section"]
-     [:section "Section Part"
-      [:button {:class "btn btn-primary btn-sm" :data-toggle "modal" :data-target "#myModal"} "Show Modal"]
-      [:div {:class "modal" :id "myModal" :role "dialog" :tabindex "-1" :aria-hidden "false"
-             :aria-labelledby "title-modal"}
-       [:div {:class "modal-dialog modal-sm"}
-        [:div {:class "modal-content"}
-         [:div {:class "modal-header"}
-          [:button {:type "button"  :class "close" :data-dismiss "modal" :aria-label "close"}
-           [:span {:aria-hidden "true"} "&times;"]]
-          [:h4 {:class "modal-title" :id "title-modal"} "Warning"]]
-         [:div {:class "modal-body"}" Hello! I'm just learning Clojure ::)"]
-         [:div {:class "modal-footer"}
-          [:button {:type "button" :class "btn btn-primary btn-sm" :data-dismiss "modal"}"Close"]]]]]]
-     [:footer "Footer Section" ]
-     [:button {:class "btn btn-primary btn-sm" :data-toggle "modal" :data-target "#modalAlert"} "Show Modal"]
-     (create-faded-modal-alert "Info" "This is a Text Message you may read")
+     (create-faded-modal-alert "Info" "This is a Text Message you may read <br>")
+     [:div {:top-margin "100px"} "<br>"]
+     [:div
+      [:table.table-bordered {:align "center" :width "75%" }
+       [:thead
+        [:tr
+        [:th.text-center "Progress Value"]
+        [:th.text-center "Progress State"]
+        [:th.text-center "Progress State"]
+        [:th.text-center "Progress Bar"]]]
+       [:tbody
+        [:tr
+         [:td.text-center "Value goes here"]
+         [:td.text-center "Value goes here"]
+         [:td.text-center "Value goes here"]
+         [:td.text-center
+          (create-progress-bar "pb1")]]]]]
+
      ;(include-js "/jquery/dist/jquery.js")
      (include-js "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
      (include-js "/bootstrap/dist/js/bootstrap.js")

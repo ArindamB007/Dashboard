@@ -14,3 +14,12 @@
      [:div {:class "modal-body"} modal-msg]
      [:div {:class "modal-footer"}
       [:button {:type "button" :class "btn btn-primary btn-sm" :data-dismiss "modal"}"Close"]]]]])
+
+(defn create-progress-bar
+  "This function creates a progressbar in a table data"
+  [elementId]
+  [:div {:style "padding:10px"} "<br>"
+   [:div.progress {:id elementId :style "height:12px"}
+    [:div.progress-bar.progress-bar-success.progress-bar-striped.active
+     {:role "progressbar" :aria-valuenow "25" :aria-valuemin "0" :aria-valuemax="100" :style "width: 60%;height:12px"}
+     [:span {:class "sr-only"} "45% Complete"]]]])
