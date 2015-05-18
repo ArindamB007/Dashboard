@@ -1,6 +1,6 @@
 (ns staples-dashboard.views.main-template
   (:require [hiccup.page :refer [html5 include-css include-js ]]
-            [staples-dashboard.common.html-util :refer [create-faded-modal-alert create-progress-bar]]))
+            [staples-dashboard.common.html-util :refer [create-faded-modal-alert progress-bar-sample]]))
 
 (defn base-html5-template [title]
   (html5
@@ -12,34 +12,24 @@
      (include-css "/bootstrap/dist/css/bootstrap.css")
      ;(include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
      (include-css "/bootstrap/dist/css/bootstrap-theme.css")
+     (include-css "/css/custom.css")
      ;(include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css")
-     ;(include-js "/angular/angular.min.js")
      ]
-    [:body
-     (create-faded-modal-alert "Info" "This is a Text Message you may read <br>")
-     [:div {:top-margin "100px"} "<br>"]
-     [:div
-      [:table.table-bordered {:align "center" :width "75%" }
-       [:thead
-        [:tr
-        [:th.text-center "Progress Value"]
-        [:th.text-center "Progress State"]
-        [:th.text-center "Progress State"]
-        [:th.text-center "Progress Bar"]]]
-       [:tbody
-        [:tr
-         [:td.text-center "Value goes here"]
-         [:td.text-center "Value goes here"]
-         [:td.text-center "Value goes here"]
-         [:td.text-center
-          (create-progress-bar "pb1")]]]]]
-
+    [:body ;{:ng-app "progressBar" :ng-controller "progressBarCtrl as pbCtrl" }
+     (create-faded-modal-alert "Staples Dashboard" "This site is under construction")
+     (progress-bar-sample)
      ;(include-js "/jquery/dist/jquery.js")
      (include-js "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
      (include-js "/bootstrap/dist/js/bootstrap.js")
      ;(include-js "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+     (include-js "/angular/angular.min.js")
      (include-js "appjs/app.js")
      ]))
+
+
+
+
+
 
 
 (defn create-test [title]
