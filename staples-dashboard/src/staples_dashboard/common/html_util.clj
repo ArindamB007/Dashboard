@@ -1,4 +1,7 @@
-(ns staples-dashboard.common.html-util)
+(ns staples-dashboard.common.html-util
+  (:require [clojure.string :refer [join]]
+            )
+  (:use [cheshire.core :as json]))
 
 (defn create-faded-modal-alert
   "This function creates a modal dialog using the supplied parameters"
@@ -25,6 +28,7 @@
       :role "progressbar" :aria-valuenow "{{data.pgValue}}" :aria-valuemin "0" :aria-valuemax= "100" :style "width: {{data.pgValue}}%;height:12px"}
      [:span {:class "sr-only"} "{{data.pgValue}}% Complete"]]]])
 
+
 (defn progress-bar-sample
   "This function creates  a progress bar sample"
   []
@@ -43,3 +47,34 @@
       [:td.text-center [:button.btn-sm {:ng-click "data.pgStatus=!data.pgStatus"}"Toggle Bar"]]
       [:td {:style "vertical-align:middle"}
        (create-progress-bar "pb1")]]]]])
+
+
+(def caller (atom "Arindam"))
+
+(def my-distant-value (future
+                        (println "[Future] started computation")
+                       (Thread/sleep 20000)
+                        ;(json-event-response)
+                        (reset! caller "Awwal")
+                        (println "[Future] completed computation") "Sujoy"))
+
+
+(defn json-response
+  [status data]
+  {:status status
+   :headers {"Content-Type" "application/json"}
+   :body (json/generate-string data)})
+
+(defn json-event-response
+  []
+
+  {:status 200
+   :url "/events"
+   :headers {"Content-Type" "text/event-stream; charset=UTF-8"}
+   :body (str "data: Calling " @caller " from Server\n\n")
+   ;:body (json/generate-string data)
+   })
+
+
+
+
