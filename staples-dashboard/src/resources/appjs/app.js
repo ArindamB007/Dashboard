@@ -2,10 +2,13 @@ $(window).load(function(){
     $('#modalAlert').modal('show');
 });
 
+
 var progressBar =angular.module('progressBar',[]);
 if (!!window.EventSource) {
     var source = new EventSource("/events");
-    alert("Your browser supports Server-sent events! Please upgrade it!");
+
+    //alert("Your browser supports Server-sent events! Please upgrade it!");
+
 } else {
     alert("Your browser does not support Server-sent events! Please upgrade it!");
 }

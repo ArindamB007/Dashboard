@@ -49,15 +49,23 @@
        (create-progress-bar "pb1")]]]]])
 
 
-(def caller (atom "Arindam"))
+(def caller (ref "No Process"))
+(def process_val (agent ""))
 
-(def my-distant-value (future
-                        (println "[Future] started computation")
-                       (Thread/sleep 20000)
+(defn  update_states_in_thread [process duration]
+
+  (dosync(println "Thread " process " started")
                         ;(json-event-response)
-                        (reset! caller "Awwal")
-                        (println "[Future] completed computation") "Sujoy"))
+                        (ref-set caller process)
+                        (Thread/sleep duration)
+                        (println "Thread " process " completed -" @caller)))
+(defn start-thread
+  [fn]
+  (.start
+    (Thread. fn)))
 
+(start-thread #(update_states_in_thread "Process 1" 5000))
+(start-thread #(update_states_in_thread "Process 2" 2000))
 
 (defn json-response
   [status data]

@@ -16,15 +16,39 @@
      ;(include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css")
      ]
     [:body ;{:ng-app "progressBar" :ng-controller "progressBarCtrl as pbCtrl" }
-     (create-faded-modal-alert "Staples Dashboard" "This site is under construction")
-     (progress-bar-sample)
+     [:h3.text-center "New Banner"]
+      [:nav.navbar.navbar-default
+       [:div.container-fluid
+        [:div.navbar-header
+         [:button.navbar-toggle.collapsed {:type "button" :data-toggle "collapse" :data-target "#navbar-collapse-menu"}
+          [:span.sr-only "Toggle Navigation"]
+          [:span.icon-bar]
+          [:span.icon-bar]
+          [:span.icon-bar]]
+         [:a.navbar-brand {:href ""} "Some Brand"]]
+
+
+        [:div.collapse.navbar-collapse {:id "navbar-collapse-menu" }
+        [:ul.nav.navbar-nav
+         [:li [:a "Link1"]]
+         [:li.dropdown
+          [:a.dropdown-toggle {:data-toggle "dropdown" :role "button" :aria-expanded false}"DropDown"[:span.caret]]
+          [:ul.dropdown-menu {:role "menu"}
+           [:li[:a"menu1"]]
+           [:li[:a"menu2"]]
+           [:li.divider]
+           [:li[:a"menu3"]]
+           [:li[:a"menu4"]]]]]
+        ]]]]
+     ;(create-faded-modal-alert "Staples Dashboard" "This site is under construction")
+     ;(progress-bar-sample)
      ;(include-js "/jquery/dist/jquery.js")
      (include-js "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
      (include-js "/bootstrap/dist/js/bootstrap.js")
      ;(include-js "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
      (include-js "/angular/angular.min.js")
      (include-js "appjs/app.js")
-     ]))
+     ))
 
 
 
