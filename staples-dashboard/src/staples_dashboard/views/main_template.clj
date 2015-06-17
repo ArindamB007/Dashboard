@@ -2,8 +2,9 @@
   (:require [hiccup.page :refer [html5 include-css include-js ]]
             [staples-dashboard.common.html-util :refer [create-faded-modal-alert progress-bar-sample]]))
 
-(defn base-html5-template [title]
-  (html5
+(defn base-html5-template [title request]
+ (println (str request))
+ (html5
     [:head
      [:meta {:charset "utf-8"}]
      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]

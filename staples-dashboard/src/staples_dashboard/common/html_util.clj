@@ -49,14 +49,14 @@
        (create-progress-bar "pb1")]]]]])
 
 
-(def caller (ref "No Process"))
+(def caller (ref{}))
 (def process_val (agent ""))
 
-(defn  update_states_in_thread [process duration]
+(defn  update_states_in_thread [session-id process duration]
 
   (dosync(println "Thread " process " started")
                         ;(json-event-response)
-                        (ref-set caller process)
+                        (ref-set caller (assoc @caller session-id process))
                         (Thread/sleep duration)
                         (println "Thread " process " completed -" @caller)))
 (defn start-thread
@@ -64,8 +64,8 @@
   (.start
     (Thread. fn)))
 
-(start-thread #(update_states_in_thread "Process 1" 5000))
-(start-thread #(update_states_in_thread "Process 2" 2000))
+;(start-thread #(update_states_in_thread "Process 1" 5000))
+;(start-thread #(update_states_in_thread "Process 2" 2000))
 
 (defn json-response
   [status data]
@@ -74,12 +74,14 @@
    :body (json/generate-string data)})
 
 (defn json-event-response
-  []
-
+  [session-id session]
+  (start-thread #(update_states_in_thread session-id (str "Process" (rand-int 100)) (rand-int 1000)))
+  ;(start-thread #(update_states_in_thread (str "Process" (rand-int 100)) 2000))
   {:status 200
    :url "/events"
    :headers {"Content-Type" "text/event-stream; charset=UTF-8"}
-   :body (str "data: Calling " @caller " from Server\n\n")
+   :body (str "data: Calling " @caller "from Server ID: "(@caller session-id) " \n\n")
+   ;:session (assoc session :id @caller)
    ;:body (json/generate-string data)
    })
 
