@@ -8,8 +8,9 @@
             [staples-dashboard.common.html-util :as html-utils]))
  (use 'ring.middleware.session 'ring.util.request)
 (defroutes app-routes
-  (GET "/" [] (fn [request](base-html5-template "Staples Dashboard" request)))
-  (GET "/events" [](fn [request](html-utils/json-event-response (((request :cookies) "ring-session") :value)(request :session))))
+  ;(GET "/" [] (fn [request](base-html5-template "Staples Dashboard" request)))
+  (GET "/" [] (fn [request](base-html5-template "Staples SKU Build" request)))
+ ; (GET "/events" [](fn [request](html-utils/json-event-response (((request :cookies) "ring-session") :value)(request :session))))
   (GET "/Test" [] (create-test "Test Page"))
   (route/not-found "Not Found"))
 

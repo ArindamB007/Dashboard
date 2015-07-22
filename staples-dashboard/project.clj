@@ -8,7 +8,8 @@
                  [ring/ring-defaults "0.1.2"]
                  [hiccup "1.0.5"]
                  [cheshire "5.2.0"]]
-  :plugins [[lein-ring "0.8.13"]]
+  :plugins [[lein-ring "0.8.13"]
+            [lein-less "1.7.5"]]
   :ring {:handler staples-dashboard.handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
