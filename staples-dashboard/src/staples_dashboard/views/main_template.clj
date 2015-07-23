@@ -1,6 +1,46 @@
 (ns staples-dashboard.views.main-template
   (:require [hiccup.page :refer [html5 include-css include-js ]]
-            [staples-dashboard.common.html-util :refer [create-faded-modal-alert progress-bar-sample]]))
+            [staples-dashboard.common.html-util :refer [create-faded-modal-alert progress-bar-sample]]
+            [clojure.java.io :as io]
+            [clj-time.core :as dtcore]
+            [clj-time.coerce :as dtutil]
+            [clj-time.local :as dtlocal ]))
+
+(defn trash-files [folder-path duration-in-days]
+"Function to delete files on a particular path if they are older than
+ the supplied duration in days"
+  (let  [ folder (io/file folder-path)
+         folder-seq (file-seq folder) ]
+    (doseq [each-file (rest folder-seq)]
+      (println (str (str " " each-file " - ")
+                    (dtcore/to-time-zone
+                      (dtutil/from-long (.lastModified each-file))
+                      (dtcore/default-time-zone))))
+      (print (dtcore/in-days (dtcore/interval
+                               (dtcore/to-time-zone
+                                 (dtutil/from-long (.lastModified each-file))
+                                 (dtcore/default-time-zone))
+                               (dtlocal/local-now))))
+      (if (< duration-in-days (dtcore/in-days (dtcore/interval
+                                                (dtcore/to-time-zone
+                                                  (dtutil/from-long (.lastModified each-file))
+                                                  (dtcore/default-time-zone))
+                                                (dtlocal/local-now))))
+        (do
+          (println " Trimmed")
+          (try
+            (.delete each-file)
+            (catch Exception e (println "Error Deleting File "
+                                        (str each-file) "-" (.getMessage e))
+                               )))
+        (println " No Trimming"))
+
+      )
+    )
+  )
+
+
+
 
 (defn base-html5-template [title request]
  (println (str request))

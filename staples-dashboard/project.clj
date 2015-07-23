@@ -7,6 +7,7 @@
                  [compojure "1.3.1"]
                  [ring/ring-defaults "0.1.2"]
                  [hiccup "1.0.5"]
+                 [clj-time "0.10.0"]
                  [cheshire "5.2.0"]]
   :plugins [[lein-ring "0.8.13"]
             [lein-less "1.7.5"]]
